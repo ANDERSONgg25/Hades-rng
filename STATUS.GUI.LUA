@@ -9,6 +9,11 @@ local scrollingFrame = player.PlayerGui:WaitForChild("Menu")
     :WaitForChild("Lists")
     :WaitForChild("ScrollingFrame")
 
+local existingGui = game:GetService("CoreGui"):FindFirstChild("StatusGUI")
+if existingGui then
+    existingGui:Destroy()
+end
+
 local function createGuiElement(className, properties, parent)
     local element = Instance.new(className)
     for property, value in pairs(properties) do
@@ -18,8 +23,7 @@ local function createGuiElement(className, properties, parent)
     return element
 end
 
-local screenGui = createGuiElement("ScreenGui", {}, game:GetService("CoreGui"))
-
+local screenGui = createGuiElement("ScreenGui", { Name = "StatusGUI" }, game:GetService("CoreGui"))
 local statusFrame = createGuiElement("Frame", {
     Size = UDim2.new(0.3, 0, 0.5, 0),
     Position = UDim2.new(0.35, 0, 0.25, 0),
@@ -29,11 +33,8 @@ local statusFrame = createGuiElement("Frame", {
     Draggable = true
 }, screenGui)
 
-local cornerRadius = createGuiElement("UICorner", {
-    CornerRadius = UDim.new(0, 10)
-}, statusFrame)
-
-local shadow = createGuiElement("ImageLabel", {
+createGuiElement("UICorner", { CornerRadius = UDim.new(0, 10) }, statusFrame)
+createGuiElement("ImageLabel", {
     Size = UDim2.new(1, 20, 1, 20),
     Position = UDim2.new(0, -10, 0, -10),
     BackgroundTransparency = 1,
@@ -53,6 +54,7 @@ local titleLabel = createGuiElement("TextLabel", {
     TextScaled = true,
     Font = Enum.Font.SourceSansBold
 }, statusFrame)
+
 createGuiElement("UICorner", { CornerRadius = UDim.new(0, 10) }, titleLabel)
 
 local scrollingContainer = createGuiElement("ScrollingFrame", {
@@ -64,8 +66,8 @@ local scrollingContainer = createGuiElement("ScrollingFrame", {
     ScrollBarThickness = 8,
     ScrollBarImageColor3 = Color3.fromRGB(100, 100, 100)
 }, statusFrame)
-createGuiElement("UICorner", { CornerRadius = UDim.new(0, 10) }, scrollingContainer)
 
+createGuiElement("UICorner", { CornerRadius = UDim.new(0, 10) }, scrollingContainer)
 local uiListLayout = createGuiElement("UIListLayout", {
     SortOrder = Enum.SortOrder.LayoutOrder
 }, scrollingContainer)
@@ -77,7 +79,7 @@ local function convertXToNumber(text)
 end
 
 local function createStatusLabel(parent, displayText, contentText)
-    local label = createGuiElement("TextLabel", {
+    return createGuiElement("TextLabel", {
         Size = UDim2.new(1, 0, 0, 30),
         BackgroundTransparency = 1,
         Text = displayText .. " " .. contentText,
@@ -85,7 +87,6 @@ local function createStatusLabel(parent, displayText, contentText)
         TextScaled = true,
         Font = Enum.Font.SourceSans
     }, parent)
-    return label
 end
 
 local function updateStatus()
