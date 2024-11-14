@@ -9,7 +9,6 @@ local scrollingFrame = player.PlayerGui:WaitForChild("Menu")
     :WaitForChild("Lists")
     :WaitForChild("ScrollingFrame")
 
--- Función auxiliar para crear elementos GUI con propiedades personalizadas
 local function createGuiElement(className, properties, parent)
     local element = Instance.new(className)
     for property, value in pairs(properties) do
@@ -21,7 +20,6 @@ end
 
 local screenGui = createGuiElement("ScreenGui", {}, game:GetService("CoreGui"))
 
--- Frame principal con estilo mejorado
 local statusFrame = createGuiElement("Frame", {
     Size = UDim2.new(0.3, 0, 0.5, 0),
     Position = UDim2.new(0.35, 0, 0.25, 0),
@@ -31,12 +29,10 @@ local statusFrame = createGuiElement("Frame", {
     Draggable = true
 }, screenGui)
 
--- Bordes redondeados para el frame principal
 local cornerRadius = createGuiElement("UICorner", {
     CornerRadius = UDim.new(0, 10)
 }, statusFrame)
 
--- Sombra para el frame principal
 local shadow = createGuiElement("ImageLabel", {
     Size = UDim2.new(1, 20, 1, 20),
     Position = UDim2.new(0, -10, 0, -10),
@@ -48,7 +44,6 @@ local shadow = createGuiElement("ImageLabel", {
     ZIndex = -1
 }, statusFrame)
 
--- Etiqueta de título mejorada
 local titleLabel = createGuiElement("TextLabel", {
     Size = UDim2.new(1, 0, 0, 30),
     BackgroundColor3 = Color3.fromRGB(30, 30, 30),
@@ -60,7 +55,6 @@ local titleLabel = createGuiElement("TextLabel", {
 }, statusFrame)
 createGuiElement("UICorner", { CornerRadius = UDim.new(0, 10) }, titleLabel)
 
--- Contenedor de desplazamiento mejorado
 local scrollingContainer = createGuiElement("ScrollingFrame", {
     Size = UDim2.new(1, 0, 1, -30),
     Position = UDim2.new(0, 0, 0, 30),
@@ -78,12 +72,10 @@ local uiListLayout = createGuiElement("UIListLayout", {
 
 local guiLabels = {}
 
--- Función para convertir "xN" en solo N
 local function convertXToNumber(text)
     return text:match("^%s*[xX](%d+)%s*$") or text
 end
 
--- Función para crear etiquetas de estado
 local function createStatusLabel(parent, displayText, contentText)
     local label = createGuiElement("TextLabel", {
         Size = UDim2.new(1, 0, 0, 30),
@@ -96,7 +88,6 @@ local function createStatusLabel(parent, displayText, contentText)
     return label
 end
 
--- Función para actualizar el estado en el contenedor
 local function updateStatus()
     for _, child in pairs(scrollingContainer:GetChildren()) do
         if child:IsA("TextLabel") then
