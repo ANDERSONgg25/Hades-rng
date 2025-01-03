@@ -1,11 +1,10 @@
 loadstring(game:HttpGet("https://raw.githubusercontent.com/ANDERSONgg25/ATI/main/Getgenv"))()
-
 loadstring(game:HttpGet(("https://raw.githubusercontent.com/ANDERSONgg25/GGUI/main/Source.Lua%20(1).txt")))()
 
 MakeWindow({
     Hub = {
         Title = "RYUMAN HUB",
-        Animation = "By: FINO444"
+        Animation = "by FINO444"
     },
     Key = {
         KeySystem = false,
@@ -32,34 +31,39 @@ MinimizeButton({
 })
 
 local Main = MakeTab({Name = "Main"})
-local Status = MakeTab({Name = "Status"})
-
-AddButton(Status, {
-    Name = "Status Gui",
-    Callback = function()
-        loadstring(game:HttpGet(("https://raw.githubusercontent.com/ANDERSONgg25/Hades-rng/main/STATUS.GUI.LUA")))()
-    end
-})
 
 AddToggle(Main, {
-    Name = "Auto Collect + GwaGwa + Pray + Bring",
+    Name = "Auto Collect Bring✅ + GwaGwa✅ Pray✅ Lunaris✅ Maxwell❌",
     Default = false,
     Callback = function(value)
         getgenv().bringEnabled = value
+        if getgenv().bringEnabled then
+            getgenv().bringLoop = getgenv().runService.Heartbeat:Connect(function()
+                getgenv().bringObjectsToPlayer()
+            end)
+        else
+            if getgenv().bringLoop then
+                getgenv().bringLoop:Disconnect()
+                getgenv().bringLoop = nil
+            end
+        end
     end
 })
 
 AddToggle(Main, {
-    Name = "Auto Collect + GwaGwa + Pray + tp",
+    Name = "Auto Collect tp✅ + GwaGwa✅ Pray✅ Lunaris✅ Maxwell✅",
     Default = false,
     Callback = function(value)
-        getgenv().teleEnabled = value
-    end
-})
-
-AddButton(Main, {
-    Name = "QuickRoll 75%",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/ANDERSONgg25/ATI/main/QuickRoll"))()  
+        getgenv().tpEnabled = value
+        if getgenv().tpEnabled then
+            getgenv().tpLoop = getgenv().runService.Heartbeat:Connect(function()
+                getgenv().teleportToObjects()
+            end)
+        else
+            if getgenv().tpLoop then
+                getgenv().tpLoop:Disconnect()
+                getgenv().tpLoop = nil
+            end
+        end
     end
 })
