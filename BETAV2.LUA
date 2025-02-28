@@ -3,8 +3,8 @@ loadstring(game:HttpGet(("https://raw.githubusercontent.com/ANDERSONgg25/GGUI/ma
 
 MakeWindow({
     Hub = {
-        Title = "RYUMAN HUB",
-        Animation = "by FINO444"
+        Title = "RYUMAN HUB 🇨🇴",
+        Animation = "By FINO444"
     },
     Key = {
         KeySystem = false,
@@ -64,6 +64,19 @@ AddToggle(Main, {
                 getgenv().tpLoop:Disconnect()
                 getgenv().tpLoop = nil
             end
+        end
+    end
+})
+
+AddToggle(Main, {
+    Name = "Fast Roll BETA✅",
+    Default = false,
+    Callback = function(value)
+        if value then
+            getgenv().originalRollSpeed = game:GetService("Players").LocalPlayer:GetAttribute("RollSpeed") or 0
+            game:GetService("Players").LocalPlayer:SetAttribute("RollSpeed", 1e999999999999999)
+        else
+            game:GetService("Players").LocalPlayer:SetAttribute("RollSpeed", getgenv().originalRollSpeed)
         end
     end
 })
